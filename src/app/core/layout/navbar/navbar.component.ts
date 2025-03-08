@@ -21,6 +21,8 @@ export class NavbarComponent {
   ngOnInit(): void {
     this._AuthService.isLogin.subscribe( (res)=>{
       this.enableNavBar = res;
+      console.log(this.enableNavBar);
+      
     })
     
   }
@@ -32,3 +34,6 @@ export class NavbarComponent {
 
   }
 }
+
+
+
