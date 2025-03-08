@@ -1,0 +1,94 @@
+@if (isLoading) {
+    <app-loader></app-loader>
+}@else {
+    @if (cartDetails.numOfCartItems !== 0 && !emptyCart) {
+        <div class="container w-[70%] mx-auto mt-10">
+            <div class="cart-header flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-semibold">Total Cart Items: {{cartDetails.numOfCartItems}} </h2>
+                <div class="flex items-center mb-6">
+                    <p class="text-2xl font-semibold me-4">
+                        total Cart Price: {{cartDetails.data.totalCartPrice}} EGP
+                    </p>
+                    <BUtton (click)="clearCart()" class="rounded-md p-2 bg-red-500 text-white hover:bg-main ">Clear</BUtton>
+                </div>
+            </div>
+        
+        
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                        <tr>
+                            <th scope="col" class="px-16 py-3">
+                                <span class="sr-only">Image</span>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Product
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Qty
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Price
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (product of cartDetails.data.products; track $index) {
+                        <tr class="bg-white border-b  border-gray-200 hover:bg-gray-50 ">
+                            <td class="p-4">
+                                <img [src]="product.product.imageCover" class="w-16 md:w-32 max-w-full max-h-full"
+                                    alt="Apple Watch">
+                            </td>
+                            <td class="px-6 py-4 font-semibold text-gray-900 ">
+                                {{product.product.title}}
+                            </td>
+                            <td class="px-3 py-4">
+                                <div class="flex items-center">
+                                    <button (click)="updateCount(product.product._id, product.count - 1)"
+                                        class="inline-flex items-center justify-center p-1 me-3 text-sm font-medium h-6 w-6 text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 "
+                                        type="button">
+                                        <span class="sr-only">Quantity button</span>
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 18 2">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 1h16" />
+                                        </svg>
+                                    </button>
+                                    <span>{{product.count}}</span>
+                                    <button (click)="updateCount(product.product._id, product.count + 1)"
+                                        class="inline-flex items-center justify-center h-6 w-6 p-1 ms-3 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 "
+                                        type="button">
+                                        <span class="sr-only">Quantity button</span>
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 18 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 1v16M1 9h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class=" py-4 font-semibold text-gray-900 ">
+                                {{product.price}} EGP
+                            </td>
+                            <td class=" py-4">
+                                <button (click)="removeItem(product.product._id)"
+                                    class="font-medium text-red-600  hover:underline">Remove</button>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cart-actions">
+                <a [routerLink] ="['/checkout', cartDetails.cartId]" class="inline-block bg-main p-2 my-4 rounded-md text-white" >Continue</a>
+            </div>
+        </div>
+    }@else {
+        <img src="images/empty_cart.svg" class="  w-full object-contain h-[80vh]" alt="empty cart">
+    }
+}
+

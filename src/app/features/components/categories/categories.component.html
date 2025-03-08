@@ -1,0 +1,13 @@
+<!-- Categories Page --> 
+<div class="container w-[80%] mx-auto mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3">
+        @for (category of allCategories; track $index) {
+      <div  class="category-item bg-white p-4  shadow-md rounded-md product h-[330px]  hover:border-2 hover:border-main">
+        <img [src]="category.image" class="w-full h-60 object-cover" alt="">
+        <h3 class="text-lg font-semibold text-center pt-3 text-main pb-6">{{ category.name }}</h3>
+      </div>
+    }@empty {
+      <app-loader></app-loader>
+    }
+    </div>
+  </div>

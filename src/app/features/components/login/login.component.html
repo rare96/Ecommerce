@@ -1,0 +1,57 @@
+<div class="container w-[50%] mx-auto mt-7">
+    <h1 class="text-2xl font-semibold mb-4">Login Now:</h1>
+    <form class="max-w-xl mx-auto " [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+        @if(isErrorMes){
+            <div class="p-2 mb-4 text-lg text-center text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                Incorrect Email or Password
+              </div>
+        }
+        <div class="mb-5">
+            <label for="email" class="block mb-2 text-sm font-medium text-main ">Email:</label>
+            <input type="email" formControlName="email" id="email"
+                class="bg-main-50 border border-main-300 text-main-900 text-sm rounded-lg focus:border-main  block w-full p-2.5 " />
+    
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium"> This Field is Required</span>
+            </div>
+            }
+    
+            @if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('email')) {
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium"> Please Enter a valid Email</span>
+            </div>
+            }
+    
+        </div>
+        <div class="mb-5 relative">
+            <label for="password" class="block mb-2 text-sm font-medium text-main ">Password:</label>
+            <input type="text" formControlName="password" id="password"
+                class="bg-main-50 border border-main-300 text-main-900 text-sm rounded-lg focus:border-main  block w-full p-2.5 " />
+
+            @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium"> This Field is Required</span>
+            </div>
+            }
+    
+            @if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('pattern')) {
+            <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                <span class="font-medium"> Must Start with a Capital Letter </span>
+                <span class="font-medium"> must be at least 6 chars </span>
+            </div>
+            }
+    
+        </div>
+
+        @if (isloading) {
+            <button 
+            class="text-white bg-main hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "><i class="fas fa-spinner fa-spin"></i></button>
+    
+        }@else{
+        <button type="submit"
+            class="text-white bg-main hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center ">LogIn</button>
+    
+        }
+    </form>
+</div>

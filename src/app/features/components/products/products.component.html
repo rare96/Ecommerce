@@ -1,0 +1,31 @@
+<div class="container w-[80%] mx-auto pt-10">
+  <!-- Search Bar -->
+  <div class="mb-6 w-[60%] mx-auto">
+    <input type="text" [(ngModel)]="searchTerm" placeholder="Search products..."
+      class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-main" />
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+    @for (product of allProducts|search:searchTerm; track $index) {
+    <div class="product-item bg-white p-4 shadow-md rounded-md product cursor-pointer">
+      <img [src]="product.imageCover" alt="Product Image" class="w-full" [routerLink]="['/productDetails',product.id]">
+      <h3 class="text-sm  text-main pb-3">{{ product.category.name }}</h3>
+      <h3 class="text-sm font-semibold text-black pb-2">{{ product.title.split(' ').slice(0, 2)}}</h3>
+      <div class="flex justify-between">
+        <p class="text-l ">{{product.price}} EGP</p>
+        <span>
+          <i class="fa-solid fa-star text-[#ffc908]"></i>
+          {{product.ratingsAverage}}
+        </span>
+      </div>
+      <button  (click)="addToCart(product.id)" class="bg-main text-white text-center p-2 mt-1 rounded-md btn"> <i class="fa-solid fa-add"></i> Add to
+        Cart</button>
+    </div>
+
+    } @empty {
+    <app-loader></app-loader>
+    }
+  </div>
+
+</div>
